@@ -1,8 +1,18 @@
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router";
-import Product from "../features/products/pages/Product";
-import Checkout from "../features/products/pages/Checkout";
+const Product  = lazy(()=>import("../features/products/pages/Product"));
+const Checkout  = lazy(()=>import("../features/products/pages/Checkout"));
+const LoginPage  = lazy(()=>import("../features/auth/Pages/LoginPage"));
 
 const routes = createBrowserRouter([
+  {
+    index: true,
+    element: <h1>Home</h1>
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
   {
     path: "/product/:id",
     element: <Product />,
