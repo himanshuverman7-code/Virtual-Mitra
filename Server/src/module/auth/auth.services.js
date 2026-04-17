@@ -13,6 +13,7 @@ import {
 import sendEmail from "../../shared/services/sendMail.js";
 import { getOtpMailOptions } from "../../shared/schemas/mail.schema.js";
 import ApiError from "../../shared/utils/ApiError.js";
+import { AUTH_MESSAGES, HTTP_STATUS } from "../../shared/constants/messages.js";
 
 // Actual Shit Starts From Here
 
@@ -33,17 +34,14 @@ export const registerService = async (userData) => {
   // Check if user already exists
   const isUserExist = await userRepo.findUserByEmail(userData.email);
 
-  let user;
-  let payload = {
-    id: isUserExist?._id,
-  };
-  if (!isUserExist) {
-    user = await userRepo.createUser(userData);
-    payload = {
-      id: isUserExist?._id,
-    };
+  if (isUserExist) {
+    throw new ApiError(HTTP_STATUS.CONFLICT, AUTH_MESSAGES.USER_ALREADY_EXISTS);
   }
-  // Generate a JWT for the authenticated user
+
+  const user = await userRepo.createUser(userData);
+  const payload = { id: user._id };
+
+  // Generate JWT tokens for the authenticated user
   const accessToken = jwt.generateAccessToken(payload);
   const refreshToken = jwt.generateRefreshToken(payload);
 
@@ -57,7 +55,7 @@ export const loginService = async (email) => {
   const user = await userRepo.findUserByEmail(email);
 
   if (!user) {
-    throw new ApiError(400, "User not found");
+    throw new ApiError(HTTP_STATUS.NOT_FOUND, AUTH_MESSAGES.USER_NOT_FOUND);
   }
 
   // Generating otp and mail options
@@ -81,13 +79,13 @@ export const verifyLoginService = async (email, otp) => {
 
   // Check expiry
   if (!hash) {
-    throw new ApiError(408, "Time out! OTP has been expired");
+    throw new ApiError(HTTP_STATUS.BAD_REQUEST, AUTH_MESSAGES.OTP_EXPIRED);
   }
 
   // Check OTP
   const verifyOtp = await compareHashedOtp(otp, hash);
   if (!verifyOtp) {
-    throw new ApiError(400, "OTP not match");
+    throw new ApiError(HTTP_STATUS.BAD_REQUEST, AUTH_MESSAGES.OTP_INVALID);
   }
 
   // Generate a JWT for the authenticated user
@@ -119,7 +117,10 @@ export const logoutService = async ({ refreshToken, accessToken }) => {
 export const refreshTokenService = async (refreshToken) => {
   // verify refresh token
   if (!refreshToken) {
-    throw new ApiError(400, "Refresh token not found");
+    throw new ApiError(
+      HTTP_STATUS.BAD_REQUEST,
+      AUTH_MESSAGES.REFRESH_TOKEN_NOT_FOUND,
+    );
   }
 
   const decoded = jwt.verifyRefreshToken(refreshToken);
@@ -128,7 +129,10 @@ export const refreshTokenService = async (refreshToken) => {
   const storedToken = await tokenRepo.findRefreshToken(refreshToken);
 
   if (!storedToken) {
-    throw new ApiError(400, "Invalid refresh token");
+    throw new ApiError(
+      HTTP_STATUS.BAD_REQUEST,
+      AUTH_MESSAGES.INVALID_REFRESH_TOKEN,
+    );
   }
 
   const newAccessToken = jwt.generateAccessToken({ id: decoded.id });

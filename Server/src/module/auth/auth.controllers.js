@@ -1,7 +1,12 @@
 import asyncHandler from "../../shared/utils/asyncHandler.js";
+import {
+  successResponse,
+  sendResponse,
+} from "../../shared/utils/responseHandler.js";
 import * as authServices from "./auth.services.js";
 import * as userRepo from "../user/user.repository.js";
 import { config } from "../../config/env.config.js";
+import { AUTH_MESSAGES, HTTP_STATUS } from "../../shared/constants/messages.js";
 
 // Actual Shit Starts From Here
 export const googleCallback = asyncHandler(async (req, res) => {
@@ -23,9 +28,9 @@ export const googleCallback = asyncHandler(async (req, res) => {
       secure: config.NODE_ENV === "production",
       sameSite: "strict",
       maxAge: 15 * 60 * 1000,
-    })
-    .status(201)
-    .json({ user });
+    });
+
+  sendResponse(res, HTTP_STATUS.CREATED, AUTH_MESSAGES.LOGIN_SUCCESS, { user });
 });
 
 export const register = asyncHandler(async (req, res) => {
@@ -47,9 +52,11 @@ export const register = asyncHandler(async (req, res) => {
       secure: config.NODE_ENV === "production",
       sameSite: "strict",
       maxAge: 15 * 60 * 1000,
-    })
-    .status(201)
-    .json({ user: user });
+    });
+
+  sendResponse(res, HTTP_STATUS.CREATED, AUTH_MESSAGES.REGISTER_SUCCESS, {
+    user,
+  });
 });
 
 export const login = asyncHandler(async (req, res) => {
@@ -58,14 +65,15 @@ export const login = asyncHandler(async (req, res) => {
   // Calling Services
   await authServices.loginService(email);
 
-  res.status(200).json({ message: `OTP sent successfully to ${email}` });
+  sendResponse(res, HTTP_STATUS.OK, AUTH_MESSAGES.OTP_SENT);
 });
 
 export const verifyLogin = asyncHandler(async (req, res) => {
-  const {otp, email} = req.body;
+  const { otp, email } = req.body;
 
   // Calling Services
-  const {refreshToken, accessToken, user} = await authServices.verifyLoginService(email, otp);
+  const { refreshToken, accessToken, user } =
+    await authServices.verifyLoginService(email, otp);
 
   res
     .cookie("refreshToken", refreshToken, {
@@ -79,23 +87,21 @@ export const verifyLogin = asyncHandler(async (req, res) => {
       secure: config.NODE_ENV === "production",
       sameSite: "strict",
       maxAge: 15 * 60 * 1000,
-    })
-    .status(200)
-    .json({ user: user });
+    });
+
+  sendResponse(res, HTTP_STATUS.OK, AUTH_MESSAGES.OTP_VERIFIED, { user });
 });
 
 export const logout = asyncHandler(async (req, res) => {
   await authServices.logoutService(req.cookies);
-  res
-    .clearCookie("refreshToken")
-    .clearCookie("accessToken")
-    .status(200)
-    .json({ message: "Logged out successfully" });
+  res.clearCookie("refreshToken").clearCookie("accessToken");
+
+  sendResponse(res, HTTP_STATUS.OK, AUTH_MESSAGES.LOGOUT_SUCCESS);
 });
 
 export const getMe = asyncHandler(async (req, res) => {
   const user = await userRepo.findUserById(req.user.id);
-  res.status(200).json({ user });
+  sendResponse(res, HTTP_STATUS.OK, "Profile fetched successfully", { user });
 });
 
 export const refreshToken = asyncHandler(async (req, res) => {
@@ -114,7 +120,10 @@ export const refreshToken = asyncHandler(async (req, res) => {
       secure: config.NODE_ENV === "production",
       sameSite: "strict",
       maxAge: 15 * 60 * 1000,
-    })
-    .status(200)
-    .json({ accessToken, refreshToken });
+    });
+
+  sendResponse(res, HTTP_STATUS.OK, AUTH_MESSAGES.TOKEN_REFRESHED, {
+    accessToken,
+    refreshToken,
+  });
 });
