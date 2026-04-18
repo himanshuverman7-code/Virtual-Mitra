@@ -1,8 +1,20 @@
 import axiosInstance from "@/shared/utils/axios";
 
-export const login = async (data) => {
+export const sendOTP = async (email) => {
   try {
-    const response = await axiosInstance.post("/auth/login", data);
+    const response = await axiosInstance.post("/auth/login", { email });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const verifyOTP = async (email, otp) => {
+  try {
+    const response = await axiosInstance.post("/auth/verify-login", {
+      email,
+      otp,
+    });
     return response.data;
   } catch (error) {
     throw error;

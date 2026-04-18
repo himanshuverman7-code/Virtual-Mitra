@@ -36,12 +36,6 @@ const CheckoutForm = () => {
         className='p-7 space-y-5'
         noValidate
       >
-        {/* Global Error Message */}
-        {authError && (
-          <div className='bg-red-500/20 border border-red-500/50 text-red-300 px-4 py-2 rounded-lg text-sm'>
-            {authError}
-          </div>
-        )}
 
         {/* Full Name */}
         <InputField
