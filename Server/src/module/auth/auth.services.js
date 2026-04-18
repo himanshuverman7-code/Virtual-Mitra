@@ -10,7 +10,7 @@ import {
   generateOTP,
   hashOTP,
 } from "../../shared/utils/OTP.js";
-import sendEmail from "../../shared/services/sendMail.js";
+import sendEmail from "../../shared/services/sendMail.services.js";
 import { getOtpMailOptions } from "../../shared/schemas/mail.schema.js";
 import ApiError from "../../shared/utils/ApiError.js";
 import { AUTH_MESSAGES, HTTP_STATUS } from "../../shared/constants/messages.js";

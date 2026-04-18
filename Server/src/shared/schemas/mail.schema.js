@@ -1,6 +1,6 @@
 export const getOtpMailOptions = (to, otp) => {
   return {
-    from: `"Virtual Mitra" <${process.env.EMAIL}>`,
+    from: `"Virtual Mitra"`,
     to,
     subject: "Your OTP Code",
     

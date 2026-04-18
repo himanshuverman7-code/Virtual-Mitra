@@ -7,6 +7,7 @@ import authenticate, {
 } from "../../shared/middlewares/authenticate.middleware.js";
 import validate from "../../shared/middlewares/validate.middleware.js";
 import { createProductSchema, updateProductSchema } from "./product.shemas.js";
+import upload from "../../shared/middlewares/multer.middleware.js"
 
 const productsRoutes = Router();
 
@@ -20,6 +21,7 @@ productsRoutes.post(
   "/create",
   authenticate,
   authAdmin,
+  upload.single('thumbnail'),
   validate(createProductSchema),
   productController.createProduct,
 );

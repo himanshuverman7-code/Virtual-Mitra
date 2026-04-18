@@ -1,9 +1,12 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router";
-import Home from "../features/info/pages/Home";
+
 import RootLayout from "./RootLayout";
+import AdminLayout from "../features/auth/components/AdminLayout.jsx";
+const Home = lazy(() => import("../features/info/pages/Home"));
 const Product = lazy(() => import("../features/products/pages/Product"));
 const Checkout = lazy(() => import("../features/products/pages/Checkout"));
+const CreateProduct = lazy(() => import("../features/products/pages/CreateProduct"));
 const LoginPage = lazy(() => import("../features/auth/Pages/LoginPage"));
 
 const routes = createBrowserRouter([
@@ -15,18 +18,30 @@ const routes = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/login",
-        element: <LoginPage />,
-      },
-      {
         path: "/product/:id",
         element: <Product />,
       },
+    ],
+  },
+
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    children: [
       {
-        path: "/checkout/:id",
-        element: <Checkout />,
+        path: "create-product",
+        element: <CreateProduct />,
       },
     ],
+  },
+
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/checkout/:id",
+    element: <Checkout />,
   },
 ]);
 

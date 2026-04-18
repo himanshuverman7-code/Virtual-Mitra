@@ -3,22 +3,21 @@ import Product from "./product.model.js";
 
 // Actual Shit Starts From Here
 
+export const findProduct =  async ({ title, price, category }) => {
+  try {
+    return await Product.findOne({ title, price, category });
+  } catch (error) {
+    throw new ApiError(500, "Error occured while finding product");
+  }
+};
+
 export const createProduct = async (productDetails) => {
   try {
     return await Product.create(productDetails);
   } catch (error) {
-    if (
-      JSON.stringify(error.keyPattern) ===
-      JSON.stringify({ name: 1, category: 1, price: 1, user: 1 })
-    ) {
-      throw new ApiError(
-        409,
-        "Product already exist with this name, category & price",
-      );
-    }
     throw new ApiError(
       500,
-      "Error occured while creating new product: " + error,
+      "Error occured while creating new product: ",
     );
   }
 };

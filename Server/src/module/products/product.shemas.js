@@ -19,9 +19,6 @@ export const createProductSchema = Joi.object({
   price: Joi.number().min(0).required(),
   currency: Joi.string().uppercase().trim().default("INR"),
   category: Joi.string().trim().min(1).required(),
-
-  thumbnail: Joi.string().uri().required(),
-
   file_url: Joi.string().uri().required(),
   preview_url: Joi.string().required(),
   description: Joi.string().min(1).required(),

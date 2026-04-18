@@ -28,10 +28,11 @@ export const getProduct = asyncHandler(async (req, res) => {
 });
 
 export const createProduct = asyncHandler(async (req, res) => {
-  const product = await productServices.createProductService(
-    req.body,
-    req.user.id,
-  );
+  const product = await productServices.createProductService({
+    body: req.body,
+    buffer: req.file.buffer,
+  });
+
   sendResponse(res, HTTP_STATUS.CREATED, PRODUCT_MESSAGES.PRODUCT_CREATED, {
     product,
   });

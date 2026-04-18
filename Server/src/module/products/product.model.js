@@ -22,7 +22,7 @@ const testimonialSchema = new Schema(
       required: true,
     },
   },
-  { _id: false }
+  { _id: false },
 );
 
 // Sub-schema for FAQ
@@ -39,7 +39,7 @@ const faqSchema = new Schema(
       trim: true,
     },
   },
-  { _id: false }
+  { _id: false },
 );
 
 // Main Product Schema
@@ -127,8 +127,10 @@ const productSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
+
+productSchema.index({ title: 1, price: 1, category: 1 }, { unique: true });
 
 const Product = mongoose.model("Product", productSchema);
 
