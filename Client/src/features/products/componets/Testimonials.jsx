@@ -1,8 +1,7 @@
 import React from "react";
 import StarRating from "./StarRating";
-import { sampleProduct as product } from "../data/productData";
 
-const Testimonials = () => {
+const Testimonials = ({product}) => {
   return (
     <div className='bg-slate-900/70 backdrop-blur-sm border border-slate-800/80 rounded-2xl p-6 shadow-xl'>
       <h3 className='text-xs font-semibold text-slate-400 uppercase tracking-widest mb-4'>

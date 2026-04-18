@@ -1,7 +1,7 @@
 import axios from "axios";
 import { handleApiResponse } from "./responseHandler";
 
-const axiosInstance = axios.create({
+const api = axios.create({
   baseURL: "/api",
   withCredentials: true,
   headers: {
@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
   },
 });
 
-axiosInstance.interceptors.response.use(
+api.interceptors.response.use(
   (res) => {
     // Handle successful responses with the standard format
     try {
@@ -33,7 +33,7 @@ axiosInstance.interceptors.response.use(
           { withCredentials: true },
         );
 
-        return axiosInstance(originalRequest);
+        return api(originalRequest);
       } catch (refreshError) {
         return Promise.reject(refreshError);
       }
@@ -64,4 +64,4 @@ axiosInstance.interceptors.response.use(
   },
 );
 
-export default axiosInstance;
+export default api;

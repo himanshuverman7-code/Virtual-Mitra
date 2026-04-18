@@ -1,9 +1,8 @@
 import { useForm } from "react-hook-form";
-import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
 import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router";
-import LoginCard from "../components/LoginCard";
-import { useEffect } from "react";
+import { lazy, useEffect } from "react";
+const LoginCard = lazy(()=> import("../components/LoginCard"));
 
 const LoginPage = () => {
   const { loading, user } = useAuth();

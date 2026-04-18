@@ -3,12 +3,11 @@ import { useState } from "react";
 import InputField from "@/shared/components/InputField";
 import useAuth from "@/features/auth/hooks/useAuth";
 
-import { sampleProduct as product } from "../data/productData";
 import { HiOutlineMail, HiOutlinePhone, HiOutlineUser } from "react-icons/hi";
 import { PiDownloadSimple, PiLockFill, PiSpeedometer } from "react-icons/pi";
 import Button from "../../../shared/components/Button";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({product}) => {
   const [serverErrors, setServerErrors] = useState({});
   const {
     register,
@@ -91,7 +90,7 @@ const CheckoutForm = () => {
 
         <Button type='submit'>
           <PiLockFill className='w-5 h-5 text-white' />
-          Complete Purchase - ${product.price}
+          Complete Purchase - ₹{product.price}
         </Button>
 
         {/* Sign In Link */}
@@ -128,10 +127,12 @@ const CheckoutForm = () => {
   }
 
   return (
-    <div className='p-7 space-y-5'>
-      <Button type='submit'>
+    <div className='p-7 space-y-5' onClick={()=>{
+      console.log("clicked");
+    }}>
+      <Button>
           <PiLockFill className='w-5 h-5 text-white' />
-          Complete Purchase - ${product.price}
+          Complete Purchase - ₹{product.price}
         </Button>
     </div>
   );

@@ -25,7 +25,7 @@ export const createProduct = async (productDetails) => {
 
 export const findProductById = async (id) => {
   try {
-    return await Product.findById(id).populate("user", "name email");
+    return await Product.findById(id);
   } catch (error) {
     throw new ApiError(500, "Error occured while finding product");
   }

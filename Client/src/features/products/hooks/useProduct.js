@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProduct, getProduct } from "../services/product.api";
+import { getAllProduct, getProductById } from "../services/product.api";
 import {
   setError,
   setLoading,
@@ -22,9 +22,9 @@ const useProduct = () => {
     }
   };
 
-  const handleGetProduct = async (id) => {
+  const handleGetProductById = async (id) => {
     try {
-      const response = await getProduct(id);
+      const response = await getProductById(id);
       dispatch(setProduct(response.product));
     } catch (error) {
       dispatch(setError(error.message));
@@ -39,7 +39,7 @@ const useProduct = () => {
     loading,
     error,
     handleGetAllProducts,
-    handleGetProduct,
+    handleGetProductById,
   };
 };
 

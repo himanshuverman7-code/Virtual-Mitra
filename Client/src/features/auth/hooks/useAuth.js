@@ -1,10 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getMe,
-  register,
-  sendOTP,
-  verifyOTP,
-} from "../services/auth.api";
+import { getMe, register, sendOTP, verifyOTP } from "../services/auth.api";
 import { setBooting, setError, setLoading, setUser } from "../slice/auth.slice";
 import { hasValidationErrors } from "@/shared/utils/responseHandler";
 import { showSuccessToast, showErrorToast } from "@/shared/utils/toast";
@@ -62,30 +57,6 @@ const useAuth = () => {
     }
   };
 
-  const handleLogin = async (data, setFieldErrors) => {
-    try {
-      dispatch(setLoading(true));
-      const response = await login(data);
-      dispatch(setUser(response.user));
-      dispatch(setError(null));
-      showSuccessToast(response.message || "Login successful!");
-    } catch (error) {
-      // Handle validation errors
-      if (hasValidationErrors(error)) {
-        if (setFieldErrors) {
-          setFieldErrors(error.fieldErrors);
-        }
-        dispatch(setError(error.message));
-        showErrorToast(error.message);
-      } else {
-        dispatch(setError(error.message || "Login failed"));
-        showErrorToast(error.message || "Login failed");
-      }
-    } finally {
-      dispatch(setLoading(false));
-    }
-  };
-
   const handleRegister = async (data, setFieldErrors) => {
     try {
       dispatch(setLoading(true));
@@ -123,7 +94,6 @@ const useAuth = () => {
   };
 
   return {
-    handleLogin,
     handleRegister,
     handleGetMe,
     handleSendOTP,

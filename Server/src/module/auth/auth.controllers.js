@@ -29,8 +29,7 @@ export const googleCallback = asyncHandler(async (req, res) => {
       sameSite: "strict",
       maxAge: 15 * 60 * 1000,
     });
-
-  sendResponse(res, HTTP_STATUS.CREATED, AUTH_MESSAGES.LOGIN_SUCCESS, { user });
+  res.redirect("http://localhost:5173/");
 });
 
 export const register = asyncHandler(async (req, res) => {

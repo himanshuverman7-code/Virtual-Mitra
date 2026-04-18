@@ -1,10 +1,5 @@
 import React from 'react'
 import { PiStarFill } from 'react-icons/pi';
-// className={`w-4 h-4 ${
-//             s <= Math.round(rating)
-//               ? "fill-amber-400 text-amber-400"
-//               : "fill-slate-600 text-slate-600"
-//           }`
 
 const StarRating = ({ rating, size = "sm" }) => {
   const sz = size === "sm" ? "text-sm" : "text-base";

@@ -1,9 +1,7 @@
-import { sampleProduct as product } from "../data/productData";
-
 import StarRating from "./StarRating";
 import { PiCheck, PiCheckCircleBold } from "react-icons/pi";
 
-const ProductCard = () => {
+const ProductCard = ({product}) => {
   return (
     <div className='bg-slate-900/70 backdrop-blur-sm border border-slate-800/80 rounded-2xl overflow-hidden shadow-2xl'>
       {/* Thumbnail */}
@@ -24,7 +22,7 @@ const ProductCard = () => {
             </h1>
             <div className='text-right shrink-0'>
               <p className='text-2xl font-extrabold text-violet-300'>
-                ${product.price}
+                ₹{product.price}
               </p>
               <p className='text-xs text-slate-400'>{product.currency}</p>
             </div>

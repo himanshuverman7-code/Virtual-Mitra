@@ -1,8 +1,7 @@
 import React from "react";
-import { sampleProduct as product } from "../data/productData";
 import { PiCheckBold } from "react-icons/pi";
 
-const SuccessState = () => {
+const SuccessState = ({product}) => {
   return (
     <div className='bg-slate-900/80 backdrop-blur-sm border border-emerald-700/50 rounded-2xl p-8 shadow-2xl flex flex-col items-center text-center gap-5'>
       <div className='w-20 h-20 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center'>

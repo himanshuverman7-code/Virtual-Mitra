@@ -1,8 +1,8 @@
-import axiosInstance from "@/shared/utils/axios";
+import api from "@/shared/utils/axios";
 
 export const sendOTP = async (email) => {
   try {
-    const response = await axiosInstance.post("/auth/login", { email });
+    const response = await api.post("/auth/login", { email });
     return response.data;
   } catch (error) {
     throw error;
@@ -11,7 +11,7 @@ export const sendOTP = async (email) => {
 
 export const verifyOTP = async (email, otp) => {
   try {
-    const response = await axiosInstance.post("/auth/verify-login", {
+    const response = await api.post("/auth/verify-login", {
       email,
       otp,
     });
@@ -23,7 +23,7 @@ export const verifyOTP = async (email, otp) => {
 
 export const register = async (data) => {
   try {
-    const response = await axiosInstance.post("/auth/register", data);
+    const response = await api.post("/auth/register", data);
     return response.data;
   } catch (error) {
     throw error;
@@ -32,7 +32,7 @@ export const register = async (data) => {
 
 export const getMe = async () => {
   try {
-    const response = await axiosInstance.get("/auth/me");
+    const response = await api.get("/auth/me");
     return response.data;
   } catch (error) {
     throw error;

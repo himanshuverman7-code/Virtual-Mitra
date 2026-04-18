@@ -5,7 +5,7 @@ import InputField from "@/shared/components/InputField";
 import { FiMail } from "react-icons/fi";
 import { FiShield } from "react-icons/fi";
 import useAuth from "../hooks/useAuth";
-import { GrGoogle } from "react-icons/gr";
+import GoogleAuth from "../../../shared/components/GoogleAuth";
 
 const LoginCard = () => {
   const { loading, handleSendOTP, handleVerifyOTP } = useAuth();
@@ -154,12 +154,7 @@ const LoginCard = () => {
         </div>
 
         {/* Social login buttons */}
-        <div className='flex'>
-          <button className='w-full cursor-pointer bg-slate-800/40 border border-slate-700/50 hover:border-slate-600 hover:bg-slate-800/60 rounded-xl py-2.5 px-4 text-sm font-medium text-slate-300 transition-all duration-200 flex items-center justify-center gap-2'>
-            <GrGoogle />
-            Google
-          </button>
-        </div>
+        <GoogleAuth/>
 
         {/* Sign up link */}
         <p className='text-center text-sm text-slate-400 mt-6'>
