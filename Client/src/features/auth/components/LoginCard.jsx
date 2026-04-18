@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import Button from "@/shared/components/Button";
-import InputField from "@/shared/components/InputField";
 import { FiMail } from "react-icons/fi";
 import { FiShield } from "react-icons/fi";
-import useAuth from "../hooks/useAuth";
-import GoogleAuth from "../../../shared/components/GoogleAuth";
+import Button from "@/shared/components/Button";
+import InputField from "@/shared/components/InputField";
+import useAuth from "@/features/auth/hooks/useAuth";
+import GoogleAuth from "@/shared/components/GoogleAuth";
 
 const LoginCard = () => {
   const { loading, handleSendOTP, handleVerifyOTP } = useAuth();
@@ -118,7 +118,7 @@ const LoginCard = () => {
                   required: "OTP is required",
                   pattern: {
                     value: /^\d{4}$/,
-                    message: "OTP must be 6 digits",
+                    message: "OTP must be 4 digits",
                   },
                 }),
               }}

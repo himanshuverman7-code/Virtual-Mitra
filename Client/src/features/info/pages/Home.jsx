@@ -1,10 +1,10 @@
 import { lazy } from "react";
 
-const ProductCard = lazy(() => import("../components/ProductCard"));
-const Hero = lazy(() => import("../sections/Hero"));
-const FeaturedProducts = lazy(() => import("../sections/FeaturedProducts"));
-const Stats = lazy(() => import("../sections/Stats"));
-const CTA = lazy(() => import("../sections/CTA"));
+const ProductCard = lazy(() => import("@/features/info/components/ProductCard"));
+const Hero = lazy(() => import("@/features/info/sections/Hero"));
+const FeaturedProducts = lazy(() => import("@/features/info/sections/FeaturedProducts"));
+const Stats = lazy(() => import("@/features/info/sections/Stats"));
+const CTA = lazy(() => import("@/features/info/sections/CTA"));
 
 const Home = () => {
   return (

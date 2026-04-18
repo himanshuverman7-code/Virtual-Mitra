@@ -1,10 +1,10 @@
 import { RouterProvider } from "react-router";
 import { Toaster } from "react-hot-toast";
-import routes from "./app/app.routes.jsx";
-import useAuth from "./features/auth/hooks/useAuth.js";
+import routes from "@/app/app.routes.jsx";
+import useAuth from "@/features/auth/hooks/useAuth.js";
 import { useEffect } from "react";
-import FullPageLoader from "./shared/components/Loader.jsx";
-import useProduct from "./features/products/hooks/useProduct.js";
+import FullPageLoader from "@/shared/components/Loader.jsx";
+import useProduct from "@/features/products/hooks/useProduct.js";
 
 const App = () => {
   const { handleGetMe, booting } = useAuth();

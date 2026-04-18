@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getMe, register, sendOTP, verifyOTP } from "../services/auth.api";
-import { setBooting, setError, setLoading, setUser } from "../slice/auth.slice";
+import { getMe, register, sendOTP, verifyOTP } from "@/features/auth/services/auth.api";
+import { setBooting, setError, setLoading, setUser } from "@/features/auth/slice/auth.slice";
 import { hasValidationErrors } from "@/shared/utils/responseHandler";
 import { showSuccessToast, showErrorToast } from "@/shared/utils/toast";
 

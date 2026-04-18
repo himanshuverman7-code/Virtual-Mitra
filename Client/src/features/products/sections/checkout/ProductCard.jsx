@@ -1,4 +1,4 @@
-import StarRating from "../../pages/componets/StarRating";
+import StarRating from "@/features/products/componets/StarRating";
 import { PiCheck, PiCheckCircleBold } from "react-icons/pi";
 
 const ProductCard = ({ product }) => {

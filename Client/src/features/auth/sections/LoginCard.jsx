@@ -4,8 +4,8 @@ import Button from "@/shared/components/Button";
 import InputField from "@/shared/components/InputField";
 import { FiMail } from "react-icons/fi";
 import { FiShield } from "react-icons/fi";
-import useAuth from "../hooks/useAuth";
-import GoogleAuth from "../../../shared/components/GoogleAuth";
+import useAuth from "@features/auth/hooks/useAuth";
+import GoogleAuth from "@/shared/components/GoogleAuth";
 
 const LoginCard = () => {
   const { loading, handleSendOTP, handleVerifyOTP } = useAuth();

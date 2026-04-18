@@ -1,6 +1,6 @@
 // import { sampleProduct as product } from "../../products/data/productData.js";
 import Button from "@/shared/components/Button";
-import StarRating from "../../products/componets/StarRating";
+import StarRating from "@/features/products/componets/StarRating";
 import { FiShoppingCart } from "react-icons/fi";
 import { PiEye } from "react-icons/pi";
 import { useNavigate } from "react-router";

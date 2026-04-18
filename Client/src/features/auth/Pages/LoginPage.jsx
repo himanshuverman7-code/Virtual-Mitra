@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
-import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router";
 import { lazy, useEffect } from "react";
-const LoginCard = lazy(()=> import("../components/LoginCard"));
+import useAuth from "@/features/auth/hooks/useAuth";
+const LoginCard = lazy(()=> import("@/features/auth/components/LoginCard"));
 
 const LoginPage = () => {
   const { loading, user } = useAuth();

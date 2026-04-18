@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
-import useAuth from "../hooks/useAuth";
+import useAuth from "@/features/auth/hooks/useAuth";
 
 const AdminLayout = () => {
   const { user } = useAuth();

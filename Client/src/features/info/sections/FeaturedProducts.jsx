@@ -1,7 +1,7 @@
 import React from "react";
-import useProduct from "../../products/hooks/useProduct";
+import useProduct from "@/features/products/hooks/useProduct";
 import { FiArrowRight } from "react-icons/fi";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "@/features/info/components/ProductCard";
 
 const FeaturedProducts = () => {
   const { products } = useProduct();

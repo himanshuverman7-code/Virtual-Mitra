@@ -5,7 +5,7 @@ import useAuth from "@/features/auth/hooks/useAuth";
 
 import { HiOutlineMail, HiOutlinePhone, HiOutlineUser } from "react-icons/hi";
 import { PiDownloadSimple, PiLockFill, PiSpeedometer } from "react-icons/pi";
-import Button from "../../../../shared/components/Button";
+import Button from "@/shared/components/Button";
 
 const CheckoutForm = ({ product }) => {
   const [serverErrors, setServerErrors] = useState({});

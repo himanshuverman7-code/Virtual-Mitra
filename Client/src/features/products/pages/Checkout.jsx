@@ -1,17 +1,17 @@
 import { lazy, useEffect, useState } from "react";
-import useProduct from "../hooks/useProduct";
+import useProduct from "@/features/products/hooks/useProduct";
 import { useParams } from "react-router";
 import FullPageLoader from "@/shared/components/Loader";
 import NotFound from "@/shared/components/NotFound";
-import OrderSummary from "../componets/OrderSummary";
+import OrderSummary from "@/features/products/sections/checkout/OrderSummary";
 
 // Import Componets
-const CheckoutForm = lazy(() => import("../componets/CheckoutForm"));
-const ChecoutHeader = lazy(() => import("../componets/ChecoutHeader"));
-const ProductCard = lazy(() => import("../componets/ProductCard"));
-const Testimonials = lazy(() => import("../componets/Testimonials"));
-// const SuccessState = lazy(() => import("../componets/SuccessState"));
-const FAQ = lazy(() => import("../componets/FAQ"));
+const CheckoutForm = lazy(() => import("@/features/products/sections/checkout/CheckoutForm"));
+const ChecoutHeader = lazy(() => import("@/features/products/sections/checkout/ChecoutHeader"));
+const ProductCard = lazy(() => import("@/features/products/sections/checkout/ProductCard"));
+const Testimonials = lazy(() => import("@/features/products/sections/checkout/Testimonials"));
+// const SuccessState = lazy(() => import("@/features/products/sections/checkout/SuccessState"));
+const FAQ = lazy(() => import("@/features/products/sections/checkout/FAQ"));
 
 /* ─── Main Page ────────────────────────────────────────────── */
 const Checkout = () => {

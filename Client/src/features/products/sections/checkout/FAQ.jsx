@@ -1,6 +1,6 @@
 // import { sampleProduct as product } from "../data/productData";
 import React from "react";
-import FAQItem from "../../pages/componets/FAQItem";
+import FAQItem from "@/features/products/componets/FAQItem";
 
 const FAQ = ({ product }) => {
   return (

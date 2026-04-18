@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProduct, getProductById } from "../services/product.api";
+import { getAllProduct, getProductById } from "@/features/products/services/product.api";
 import {
   setError,
   setLoading,

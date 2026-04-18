@@ -1,6 +1,6 @@
 import React from "react";
-import StarRating from "../../pages/componets/StarRating";
-import Testimonial from "../../pages/componets/Testimonial";
+import StarRating from "@/features/products/componets/StarRating";
+import Testimonial from "@/features/products/componets/Testimonial";
 
 const Testimonials = ({ product }) => {
   return (
