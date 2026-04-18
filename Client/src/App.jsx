@@ -4,11 +4,16 @@ import routes from "./app/app.routes.jsx";
 import useAuth from "./features/auth/hooks/useAuth.js";
 import { useEffect } from "react";
 import FullPageLoader from "./shared/components/Loader.jsx";
+import useProduct from "./features/products/hooks/useProduct.js";
 
 const App = () => {
   const { handleGetMe, booting } = useAuth();
+  const {handleGetAllProducts} = useProduct()
   useEffect(() => {
-    handleGetMe();
+    Promise.all([
+      handleGetMe(),
+      handleGetAllProducts()
+    ])
   }, []);
 
   if (booting) {

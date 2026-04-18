@@ -122,8 +122,5 @@ export const refreshToken = asyncHandler(async (req, res) => {
       maxAge: 15 * 60 * 1000,
     });
 
-  sendResponse(res, HTTP_STATUS.OK, AUTH_MESSAGES.TOKEN_REFRESHED, {
-    accessToken,
-    refreshToken,
-  });
+  sendResponse(res, HTTP_STATUS.OK, AUTH_MESSAGES.TOKEN_REFRESHED);
 });

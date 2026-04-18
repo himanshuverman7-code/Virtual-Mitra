@@ -5,6 +5,8 @@ import * as productController from "./product.controllers.js";
 import authenticate, {
   authAdmin,
 } from "../../shared/middlewares/authenticate.middleware.js";
+import validate from "../../shared/middlewares/validate.middleware.js";
+import { createProductSchema, updateProductSchema } from "./product.shemas.js";
 
 const productsRoutes = Router();
 
@@ -18,6 +20,7 @@ productsRoutes.post(
   "/create",
   authenticate,
   authAdmin,
+  validate(createProductSchema),
   productController.createProduct,
 );
 
@@ -25,6 +28,7 @@ productsRoutes.patch(
   "/update/:id",
   authenticate,
   authAdmin,
+  validate(updateProductSchema),
   productController.updateProduct,
 );
 

@@ -22,9 +22,9 @@ const app = express();
 // );
 
 // setup Morgan
-if (config.NODE_ENV === "production") {
+// if (config.NODE_ENV === "production") {
   app.use(morgan("dev"));
-}
+// }
 
 // Middleware
 app.use(express.json());

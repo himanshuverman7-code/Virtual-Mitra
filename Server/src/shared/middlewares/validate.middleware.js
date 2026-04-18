@@ -3,6 +3,9 @@ import ApiError from "../utils/ApiError.js";
 const validate = (schema) => {
   return (req, res, next) => {
     const data = "GET" === req.method ? req.query : req.body;
+    if(!data){
+      throw new ApiError(400, "Kuch to de de re baba")
+    }
     const { error, value } = schema.validate(data, {
       stripUnknown: true,
       abortEarly: false,

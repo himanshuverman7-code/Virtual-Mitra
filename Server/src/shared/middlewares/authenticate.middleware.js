@@ -19,10 +19,8 @@ const authenticate = async (req, res, next) => {
 
 export const authAdmin = async (req, res, next) => {
   // Validate administrator
-  const isAdminitrator = await findUserById({
-    _id: req.user.id,
-  });
-  if (!isAdminitrator || "role" !== isAdminitrator?.role) {
+  const isAdminitrator = await findUserById(req.user.id);
+  if (!isAdminitrator || "admin" !== isAdminitrator?.role) {
     next(new ApiError(403, "Forbidden"));
   }
   next();

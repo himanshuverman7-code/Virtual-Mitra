@@ -16,8 +16,10 @@ export const createProduct = async (productDetails) => {
         "Product already exist with this name, category & price",
       );
     }
-    4;
-    throw new ApiError(500, "Error occured while creating new product: ");
+    throw new ApiError(
+      500,
+      "Error occured while creating new product: " + error,
+    );
   }
 };
 

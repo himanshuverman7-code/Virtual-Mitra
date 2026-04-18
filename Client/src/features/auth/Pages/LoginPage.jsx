@@ -3,13 +3,14 @@ import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
 import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router";
 import LoginCard from "../components/LoginCard";
+import { useEffect } from "react";
 
 const LoginPage = () => {
   const { loading, user } = useAuth();
   const navigate = useNavigate();
-  if (user) {
-    navigate("/");
-  }
+  useEffect(()=>{
+    if (user) navigate("/");
+  }, [])
   return (
     <div className='min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-4'>
       {/* Background gradient blur effect */}
