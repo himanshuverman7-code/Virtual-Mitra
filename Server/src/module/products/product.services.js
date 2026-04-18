@@ -27,8 +27,3 @@ export const createProductService = async ({body, buffer}) => {
 
   return product;
 };
-
-export const updateProductService = async (productId, productDetails) => {
-  const product = await productRepo.updateProduct(productId, productDetails);
-  return product;
-};
