@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import InputField from "@/shared/components/InputField";
+import HookFormInput from "@/shared/components/HookFormInput";
 import useAuth from "@/features/auth/hooks/useAuth";
 
 import { HiOutlineMail, HiOutlinePhone, HiOutlineUser } from "react-icons/hi";
@@ -16,7 +16,7 @@ const CheckoutForm = ({ product }) => {
     setError,
   } = useForm({ mode: "onTouched" });
 
-  const { handleRegister, user, error: authError } = useAuth();
+  const { handleRegister, user } = useAuth();
 
   const onSubmit = async (data) => {
     setServerErrors({});
@@ -36,7 +36,7 @@ const CheckoutForm = ({ product }) => {
         noValidate
       >
         {/* Full Name */}
-        <InputField
+        <HookFormInput
           id='name'
           label='Full Name'
           placeholder='Jaskirat Singh'
@@ -52,7 +52,7 @@ const CheckoutForm = ({ product }) => {
         />
 
         {/* Email */}
-        <InputField
+        <HookFormInput
           id='email'
           label='Email Address'
           type='email'
@@ -69,7 +69,7 @@ const CheckoutForm = ({ product }) => {
         />
 
         {/* Phone */}
-        <InputField
+        <HookFormInput
           id='phone'
           label='Phone no.'
           type='text'

@@ -40,7 +40,7 @@ const routes = createBrowserRouter([
     element: <LoginPage />,
   },
   {
-    path: "/checkout/:id",
+    path: "/checkout/product/:id",
     element: <Checkout />,
   },
 ]);

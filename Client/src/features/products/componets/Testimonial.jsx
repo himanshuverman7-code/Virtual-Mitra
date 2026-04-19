@@ -2,9 +2,9 @@ import React from "react";
 import StarRating from "./StarRating";
 
 const Testimonial = ({t}) => {
+  
   return (
     <div
-      key={t.name}
       className='bg-slate-800/50 border border-slate-700/40 rounded-xl p-4'
     >
       <div className='flex items-center justify-between mb-2'>

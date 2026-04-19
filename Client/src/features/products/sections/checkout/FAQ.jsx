@@ -1,4 +1,3 @@
-// import { sampleProduct as product } from "../data/productData";
 import React from "react";
 import FAQItem from "@/features/products/componets/FAQItem";
 

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { FiMail } from "react-icons/fi";
 import { FiShield } from "react-icons/fi";
 import Button from "@/shared/components/Button";
-import InputField from "@/shared/components/InputField";
+import HookFormInput from "@/shared/components/HookFormInput";
 import useAuth from "@/features/auth/hooks/useAuth";
 import GoogleAuth from "@/shared/components/GoogleAuth";
 
@@ -71,7 +71,7 @@ const LoginCard = () => {
             className='space-y-5'
           >
             {/* Email field */}
-            <InputField
+            <HookFormInput
               id='email'
               label='Email Address'
               type='email'
@@ -106,7 +106,7 @@ const LoginCard = () => {
             </div>
 
             {/* OTP field */}
-            <InputField
+            <HookFormInput
               id='otp'
               label='Enter OTP'
               type='text'

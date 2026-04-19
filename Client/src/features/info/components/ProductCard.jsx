@@ -1,4 +1,3 @@
-// import { sampleProduct as product } from "../../products/data/productData.js";
 import Button from "@/shared/components/Button";
 import StarRating from "@/features/products/componets/StarRating";
 import { FiShoppingCart } from "react-icons/fi";
@@ -43,15 +42,13 @@ const ProductCard = ({ product }) => {
         <div className='flex items-center justify-between pt-4 border-t border-slate-700/50'>
           <div>
             <p className='text-lg font-bold text-violet-300'>
-              ${product.price}
+              ₹{product.price}
             </p>
           </div>
           <div
             className='w-fit'
             onClick={() => {
-              console.log(product);
-
-              navigate(product.preview_url);
+              navigate("/checkout/product/"+product._id);
             }}
           >
             <Button className='flex items-center justify-center'>

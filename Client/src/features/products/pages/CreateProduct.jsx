@@ -1,10 +1,8 @@
-import { useState } from "react";
+import { lazy, useState } from "react";
 import { useForm } from "react-hook-form";
-import InputField from "@/shared/components/InputField";
-import Button from "@/shared/components/Button";
+import { Link } from "react-router";
 import {
   PiPlusBold,
-  PiTrashBold,
   PiPackageBold,
   PiCurrencyInrBold,
   PiTagBold,
@@ -16,140 +14,32 @@ import {
   PiQuestionBold,
   PiCheckCircleBold,
   PiListBulletsBold,
-  PiToggleLeftBold,
   PiToggleRightFill,
   PiSparkle,
-  PiEyeBold,
   PiArrowLeftBold,
+  PiToggleLeftBold,
 } from "react-icons/pi";
-import { Link } from "react-router";
-
-/* ─── Section Wrapper ──────────────────────────────────── */
-const FormSection = ({ icon, title, subtitle, children }) => (
-  <div className='bg-slate-900/70 backdrop-blur-sm border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-5'>
-    <div className='flex items-center gap-3 pb-3 border-b border-slate-800/60'>
-      <div className='w-9 h-9 rounded-xl bg-violet-600/20 flex items-center justify-center'>
-        {icon}
-      </div>
-      <div>
-        <h3 className='text-sm font-semibold text-slate-200'>{title}</h3>
-        {subtitle && (
-          <p className='text-xs text-slate-500 mt-0.5'>{subtitle}</p>
-        )}
-      </div>
-    </div>
-    {children}
-  </div>
+import useDynamic from "@/features/products/hooks/useDynamic";
+import InputField from "@/features/products/componets/DynamicInputField";
+import ListItems from "@/features/products/componets/DynamicListItems";
+const HookFormInput = lazy(() => import("@/shared/components/HookFormInput"));
+const Button = lazy(() => import("@/shared/components/Button"));
+const FormSection = lazy(
+  () => import("@/features/products/sections/create-product/FormSection"),
+);
+const DynamicListItem = lazy(
+  () => import("@/features/products/sections/create-product/DynamicListItem"),
+);
+const TestimonialsCard = lazy(
+  () => import("@/features/products/sections/create-product/ToggleSwitch"),
+);
+const FAQCard = lazy(
+  () => import("@/features/products/sections/create-product/ToggleSwitch"),
+);
+const ToggleSwitch = lazy(
+  () => import("@/features/products/sections/create-product/ToggleSwitch"),
 );
 
-/* ─── Dynamic List Item ──────────────────────────────────── */
-const DynamicListItem = ({ value, onRemove, index }) => (
-  <div className='flex items-center gap-2 group animate-fadeIn'>
-    <div className='flex-1 bg-slate-800/60 border border-slate-700/70 rounded-xl px-4 py-2.5 text-sm text-slate-200 flex items-center gap-2'>
-      <PiCheckCircleBold className='w-4 h-4 text-violet-400 shrink-0' />
-      <span className='truncate'>{value}</span>
-    </div>
-    <button
-      type='button'
-      onClick={() => onRemove(index)}
-      className='p-2 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-all duration-200'
-    >
-      <PiTrashBold className='w-4 h-4' />
-    </button>
-  </div>
-);
-
-/* ─── Toggle Switch ──────────────────────────────────── */
-const ToggleSwitch = ({ checked, onChange, label, description }) => (
-  <div className='flex items-center justify-between'>
-    <div>
-      <p className='text-sm font-medium text-slate-200'>{label}</p>
-      {description && (
-        <p className='text-xs text-slate-500 mt-0.5'>{description}</p>
-      )}
-    </div>
-    <button
-      type='button'
-      onClick={() => onChange(!checked)}
-      className={`relative w-12 h-7 rounded-full transition-all duration-300 ${
-        checked
-          ? "bg-gradient-to-r from-violet-600 to-indigo-600 shadow-lg shadow-violet-600/30"
-          : "bg-slate-700"
-      }`}
-    >
-      <span
-        className={`absolute top-0.5 w-6 h-6 bg-white rounded-full shadow-md transition-all duration-300 ${
-          checked ? "left-[calc(100%-1.625rem)]" : "left-0.5"
-        }`}
-      />
-    </button>
-  </div>
-);
-
-/* ─── Testimonial Card ──────────────────────────────────── */
-const TestimonialCard = ({ testimonial, onRemove, index }) => (
-  <div className='bg-slate-800/50 border border-slate-700/40 rounded-xl p-4 group animate-fadeIn'>
-    <div className='flex items-start justify-between mb-2'>
-      <div className='flex items-center gap-2.5'>
-        <div className='w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-xs font-bold text-white'>
-          {testimonial.name.charAt(0)}
-        </div>
-        <div>
-          <span className='text-sm font-semibold text-slate-200 block'>
-            {testimonial.name}
-          </span>
-          <div className='flex items-center gap-0.5'>
-            {[...Array(5)].map((_, i) => (
-              <PiStarBold
-                key={i}
-                className={`w-3 h-3 ${
-                  i < testimonial.rating
-                    ? "text-amber-400"
-                    : "text-slate-600"
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-      <button
-        type='button'
-        onClick={() => onRemove(index)}
-        className='p-1.5 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-all duration-200 opacity-0 group-hover:opacity-100'
-      >
-        <PiTrashBold className='w-4 h-4' />
-      </button>
-    </div>
-    <p className='text-sm text-slate-400 pl-10 italic'>
-      &ldquo;{testimonial.comment}&rdquo;
-    </p>
-  </div>
-);
-
-/* ─── FAQ Card ──────────────────────────────────── */
-const FAQCard = ({ faq, onRemove, index }) => (
-  <div className='border border-slate-700/60 rounded-xl overflow-hidden group animate-fadeIn'>
-    <div className='px-5 py-4 flex items-start justify-between'>
-      <div className='flex-1 min-w-0'>
-        <p className='text-sm font-medium text-slate-200'>{faq.question}</p>
-        <p className='text-xs text-slate-400 mt-1 leading-relaxed'>
-          {faq.answer}
-        </p>
-      </div>
-      <button
-        type='button'
-        onClick={() => onRemove(index)}
-        className='p-1.5 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-all duration-200 opacity-0 group-hover:opacity-100 shrink-0 ml-3'
-      >
-        <PiTrashBold className='w-4 h-4' />
-      </button>
-    </div>
-  </div>
-);
-
-/* ═══════════════════════════════════════════════════════════
-   Main Page: CreateProduct
-   ═══════════════════════════════════════════════════════════ */
 const CreateProduct = () => {
   const {
     register,
@@ -163,45 +53,35 @@ const CreateProduct = () => {
     },
   });
 
+  const {
+    features,
+    includes,
+    testimonials,
+    faqs,
+    addListItem,
+    removeListItem,
+    // initializeValues,
+  } = useDynamic();
+
   // --- Dynamic Lists State ---
-  const [features, setFeatures] = useState([]);
   const [featureInput, setFeatureInput] = useState("");
 
-  const [includes, setIncludes] = useState([]);
   const [includeInput, setIncludeInput] = useState("");
 
-  const [testimonials, setTestimonials] = useState([]);
   const [testimonialForm, setTestimonialForm] = useState({
     name: "",
     comment: "",
     rating: 5,
   });
 
-  const [faqs, setFaqs] = useState([]);
   const [faqForm, setFaqForm] = useState({ question: "", answer: "" });
 
   const [isActive, setIsActive] = useState(true);
-  const [thumbnailPreview, setThumbnailPreview] = useState("");
 
   // Watch thumbnail URL for live preview
   const thumbnailUrl = watch("thumbnail");
 
   // --- Handlers ---
-  const addFeature = () => {
-    const val = featureInput.trim();
-    if (val && !features.includes(val)) {
-      setFeatures((prev) => [...prev, val]);
-      setFeatureInput("");
-    }
-  };
-
-  const addInclude = () => {
-    const val = includeInput.trim();
-    if (val && !includes.includes(val)) {
-      setIncludes((prev) => [...prev, val]);
-      setIncludeInput("");
-    }
-  };
 
   const addTestimonial = () => {
     const { name, comment, rating } = testimonialForm;
@@ -285,7 +165,7 @@ const CreateProduct = () => {
                 title='Basic Information'
                 subtitle='Product title, category, and description'
               >
-                <InputField
+                <HookFormInput
                   id='create-title'
                   label='Product Title'
                   placeholder='e.g. Ultimate UI Kit for Figma'
@@ -300,7 +180,7 @@ const CreateProduct = () => {
                   icon={<PiSparkle />}
                 />
 
-                <InputField
+                <HookFormInput
                   id='create-category'
                   label='Category'
                   placeholder='e.g. Design Assets, Templates, Courses'
@@ -356,118 +236,46 @@ const CreateProduct = () => {
                 title='Features'
                 subtitle='List the key features of your product'
               >
-                <div className='flex items-end gap-2'>
-                  <div className='flex-1'>
-                    <label className='text-sm font-medium text-slate-300 block mb-1.5'>
-                      Add Feature
-                    </label>
-                    <input
-                      id='create-feature-input'
-                      type='text'
-                      value={featureInput}
-                      onChange={(e) => setFeatureInput(e.target.value)}
-                      onKeyDown={(e) =>
-                        e.key === "Enter" && (e.preventDefault(), addFeature())
-                      }
-                      placeholder='e.g. 500+ UI components'
-                      className='w-full bg-slate-800/60 border border-slate-700/70 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all duration-200'
-                    />
-                  </div>
-                  <button
-                    type='button'
-                    onClick={addFeature}
-                    className='h-[46px] px-4 bg-violet-600/20 hover:bg-violet-600/40 border border-violet-500/30 text-violet-400 rounded-xl transition-all duration-200 flex items-center gap-1.5 text-sm font-medium'
-                  >
-                    <PiPlusBold className='w-4 h-4' />
-                    Add
-                  </button>
-                </div>
-                {features.length > 0 && (
-                  <div className='space-y-2'>
-                    {features.map((f, i) => (
-                      <DynamicListItem
-                        key={`${f}-${i}`}
-                        value={f}
-                        index={i}
-                        onRemove={(idx) =>
-                          setFeatures((prev) =>
-                            prev.filter((_, j) => j !== idx)
-                          )
-                        }
-                      />
-                    ))}
-                  </div>
-                )}
-                {features.length === 0 && (
-                  <p className='text-xs text-slate-500 text-center py-3'>
-                    No features added yet. Add at least one feature.
-                  </p>
-                )}
+                <InputField
+                  value={featureInput}
+                  setValue={setFeatureInput}
+                  onClick={() => {
+                    addListItem(featureInput, "features");
+                    setFeatureInput("");
+                  }}
+                  label='Add Features'
+                >
+                  kdsjf
+                </InputField>
+                <ListItems
+                  array={features}
+                  onRemove={removeListItem}
+                  arrayName='features'
+                />
               </FormSection>
 
               {/* ── Includes ── */}
               <FormSection
-                icon={
-                  <PiCheckCircleBold className='w-5 h-5 text-violet-400' />
-                }
+                icon={<PiCheckCircleBold className='w-5 h-5 text-violet-400' />}
                 title="What's Included"
                 subtitle='Files and resources included with the product'
               >
-                <div className='flex items-end gap-2'>
-                  <div className='flex-1'>
-                    <label className='text-sm font-medium text-slate-300 block mb-1.5'>
-                      Add Item
-                    </label>
-                    <input
-                      id='create-include-input'
-                      type='text'
-                      value={includeInput}
-                      onChange={(e) => setIncludeInput(e.target.value)}
-                      onKeyDown={(e) =>
-                        e.key === "Enter" && (e.preventDefault(), addInclude())
-                      }
-                      placeholder='e.g. Figma file, Documentation PDF'
-                      className='w-full bg-slate-800/60 border border-slate-700/70 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all duration-200'
-                    />
-                  </div>
-                  <button
-                    type='button'
-                    onClick={addInclude}
-                    className='h-[46px] px-4 bg-violet-600/20 hover:bg-violet-600/40 border border-violet-500/30 text-violet-400 rounded-xl transition-all duration-200 flex items-center gap-1.5 text-sm font-medium'
-                  >
-                    <PiPlusBold className='w-4 h-4' />
-                    Add
-                  </button>
-                </div>
-                {includes.length > 0 && (
-                  <div className='flex flex-wrap gap-2'>
-                    {includes.map((item, i) => (
-                      <span
-                        key={`${item}-${i}`}
-                        className='flex items-center gap-1.5 bg-slate-700/60 border border-slate-600/50 text-slate-200 text-xs font-medium px-3 py-1.5 rounded-lg group animate-fadeIn'
-                      >
-                        <PiCheckCircleBold className='w-3.5 h-3.5 text-violet-400' />
-                        {item}
-                        <button
-                          type='button'
-                          onClick={() =>
-                            setIncludes((prev) =>
-                              prev.filter((_, j) => j !== i)
-                            )
-                          }
-                          className='ml-1 text-slate-500 hover:text-rose-400 transition-colors'
-                        >
-                          ×
-                        </button>
-                      </span>
-                    ))}
-                  </div>
-                )}
-                {includes.length === 0 && (
-                  <p className='text-xs text-slate-500 text-center py-3'>
-                    No items added yet.
-                  </p>
-                )}
+                <InputField
+                  value={includeInput}
+                  setValue={setIncludeInput}
+                  onClick={() => {
+                    addListItem(includeInput, "includes");
+                    setIncludeInput("");
+                  }}
+                  label="What's Included"
+                >
+                  kdsjf
+                </InputField>
+                <ListItems
+                  array={includes}
+                  onRemove={removeListItem}
+                  arrayName='includes'
+                />
               </FormSection>
 
               {/* ── Testimonials ── */}
@@ -563,7 +371,7 @@ const CreateProduct = () => {
                         index={i}
                         onRemove={(idx) =>
                           setTestimonials((prev) =>
-                            prev.filter((_, j) => j !== idx)
+                            prev.filter((_, j) => j !== idx),
                           )
                         }
                       />
@@ -652,7 +460,7 @@ const CreateProduct = () => {
                   title='Pricing'
                   subtitle='Set the price and currency'
                 >
-                  <InputField
+                  <HookFormInput
                     id='create-price'
                     label='Price'
                     type='number'
@@ -691,7 +499,7 @@ const CreateProduct = () => {
                   title='Media & Links'
                   subtitle='Thumbnail and download URL'
                 >
-                  <InputField
+                  <HookFormInput
                     id='create-thumbnail'
                     label='Thumbnail URL'
                     placeholder='https://example.com/image.jpg'
@@ -706,7 +514,6 @@ const CreateProduct = () => {
                     icon={<PiImageBold />}
                   />
 
-                  {/* Thumbnail Preview */}
                   {thumbnailUrl && /^https?:\/\/.+/.test(thumbnailUrl) && (
                     <div className='relative h-36 rounded-xl overflow-hidden bg-slate-800 border border-slate-700/50'>
                       <img
@@ -723,7 +530,7 @@ const CreateProduct = () => {
                     </div>
                   )}
 
-                  <InputField
+                  <HookFormInput
                     id='create-file-url'
                     label='File Download URL'
                     placeholder='https://example.com/download/file'
@@ -770,7 +577,9 @@ const CreateProduct = () => {
                   >
                     <span
                       className={`w-2 h-2 rounded-full ${
-                        isActive ? "bg-emerald-400 animate-pulse" : "bg-slate-600"
+                        isActive
+                          ? "bg-emerald-400 animate-pulse"
+                          : "bg-slate-600"
                       }`}
                     />
                     {isActive ? "Live" : "Draft"}

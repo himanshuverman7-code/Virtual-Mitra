@@ -10,7 +10,7 @@ const Testimonials = ({ product }) => {
       </h3>
       <div className='space-y-4'>
         {product.testimonials.map((t) => (
-          <Testimonial t={t} />
+          <Testimonial t={t} key={t.name} />
         ))}
       </div>
     </div>

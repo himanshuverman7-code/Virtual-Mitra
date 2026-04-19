@@ -5,11 +5,11 @@ import {
   setLoading,
   setProduct,
   setProducts,
-} from "../slice/product.slice";
+} from "@/features/products/slice/product.slice";
 
 const useProduct = () => {
   const dispatch = useDispatch();
-  const { loading, error, hashFetched, products, product } = useSelector(
+  const { loading, error, products, product } = useSelector(
     (state) => state.products,
   );
 
